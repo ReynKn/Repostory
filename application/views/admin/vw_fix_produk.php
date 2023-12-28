@@ -53,8 +53,8 @@
                                 </td>
                                 <td class="center"><img
                                         src="<?php echo base_url('uploads/' . $single_product->product_image); ?>"
-                                        style="width:200px;height:75px" /></td>
-                                <td class="center">Rs.
+                                        style="width:100px;height:auto;" /></td>
+                                <td class="center">Rp.
                                     <?php echo $this->cart->format_number($single_product->product_price); ?>
                                 </td>
                                 <td class="center">
@@ -62,12 +62,12 @@
                                 </td>
                                 <td class="center">
                                     <a class="btn btn-info"
-                                        href="<?php echo base_url('edit/product/' . $single_product->product_id); ?>">
-                                        <i class="halflings-icon white edit"></i>
+                                        href="<?php echo base_url('Admin/edit_product/' . $single_product->product_id); ?>">
+                                        Edit<!-- <i class="halflings-icon white edit"></i> -->
                                     </a>
                                     <a class="btn btn-danger"
-                                        href="<?php echo base_url('delete/product/' . $single_product->product_id); ?>">
-                                        <i class="halflings-icon white trash"></i>
+                                        href="<?php echo base_url('Admin/delete_product/' . $single_product->product_id); ?>">
+                                        Delete<!-- <i class="halflings-icon white trash"></i> -->
                                     </a>
                                 </td>
                             </tr>

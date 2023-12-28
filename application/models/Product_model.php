@@ -11,25 +11,15 @@ class Product_model extends CI_Model
   {
     parent::__construct();
   }
-  public function get()
+  public function get($id)
   {
     $this->db->from($this->table);
+    $this->db->where('id', $id); 
     $query = $this->db->get();
-    return $query->result_array();
-  }
-  public function getById($id)
-  {
-    $this->db->from($this->table);
-    $this->db->where('id', $id);
-    $query = $this->db->get();
-    return $query->row_array();
-  }
+  
+    return $query->row();
+    }
 
-  public function update($where, $data)
-  {
-    $this->db->update($this->table, $data, $where);
-    return $this->db->affected_rows();
-  }
   public function insert($data)
   {
     $this->db->insert($this->table, $data);
@@ -44,11 +34,26 @@ class Product_model extends CI_Model
     return $info->result();
   }
 
-  public function delete($id)
+  public function edit_product_info($id)
   {
-    $this->db->where($this->id, $id);
-    ;
-    $this->db->delete($this->table);
-    return $this->db->affected_rows();
+    // $this->db->select('product_id, product_title, product_description, product_image, product_price, product_quantity, product_feature, created_at');
+    $this->db->select('*');
+    $this->db->from('product');
+    $this->db->where('product_id', $id);
+    $info = $this->db->get();
+    return $info->row();
   }
+
+  public function delete_product_info($id)
+  {
+    $this->db->where('product_id', $id);
+    return $this->db->delete('product');
+  }
+
+  public function update_product_info($id, $data)
+  {
+    $this->db->where('product_id', $id);
+    return $this->db->update('product', $data);
+  }
+
 }

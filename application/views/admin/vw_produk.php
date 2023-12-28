@@ -41,13 +41,6 @@
                 <!-- vw_produk.php -->
 
                 <form action="<?= base_url('admin/save_product') ?>" method="post" enctype="multipart/form-data">
-
-                    <?php if ($this->session->flashdata('error')): ?>
-                        <div class="alert alert-danger">
-                            <?= $this->session->flashdata('error') ?>
-                        </div>
-                    <?php endif; ?>
-
                     <div class="form-group">
                         <label>Product Title</label>
                         <input type="text" name="product_title" class="form-control">
