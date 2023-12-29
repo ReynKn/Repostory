@@ -93,7 +93,7 @@
 					</a>
 				</li>
 				<li class="active">
-					<a href="<?= site_url('Admin/orders') ?>">
+					<a href="<?= site_url('Admin/manage_order') ?>">
 						<p>Pemesanan</p>
 					</a>
 				</li>

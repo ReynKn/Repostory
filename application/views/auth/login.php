@@ -33,13 +33,13 @@
                     <form class="user" method="post" action="<?= base_url('Auth'); ?>">
                         <div class="mb-3">
                             <input type="email" class="form-control form-control-lg" placeholder="Email"
-                                aria-label="Email" name="email" id="email">
-                            <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                aria-label="customer_email" name="customer_email" id="customer_email">
+                            <?= form_error('customer_email', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="mb-3">
                             <input type="password" class="form-control form-control-user" placeholder="Password"
-                                aria-label="Password" id="password" name="password" value="<?= set_value('nama'); ?>">
-                            <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+                                aria-label="customer_password" id="customer_password" name="customer_password" value="<?= set_value('customer_name'); ?>">
+                            <?= form_error('customer_password', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="rememberMe">

@@ -21,7 +21,7 @@
             <div class="cartpage">
                 <h2> Keranjang Anda</h2>
                 <?php if ($this->cart->total_items()) { ?>
-                    <table class="tblone">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable">
                         <tr>
                             <th width="5%">No.</th>
                             <th width="30%">Nama Produk</th>
@@ -43,7 +43,7 @@
                                 <td>
                                     <?php echo $cart_items['name'] ?>
                                 </td>
-                                <td><img src="<?php echo base_url('assets/img/product/' . $cart_items['options']['product_image']) ?>"
+                                <td><img src="<?php echo base_url('uploads/' . $cart_items['options']['product_image']) ?>"
                                         alt="" /></td>
                                 <td>Rp.
                                     <?php echo $this->cart->format_number($cart_items['price']) ?>

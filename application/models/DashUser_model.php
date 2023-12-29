@@ -5,32 +5,24 @@ class DashUser_model extends CI_Model
 {
   public function get_all_featured_product()
   {
-
     $this->db->select('*');
     $this->db->from('product');
     $this->db->where('product_feature', 1);
     $this->db->limit(4);
     $this->db->order_by('product_id', 'DESC');
-
     $query = $this->db->get();
-
     return $query->result();
-
   }
 
   public function get_all_new_product()
   {
-
     $this->db->select('*');
     $this->db->from('product');
     $this->db->where('created_at >=', date('Y-m-d', strtotime('-7 days')));
     $this->db->limit(4);
     $this->db->order_by('product_id', 'DESC');
-
     $query = $this->db->get();
-
     return $query->result();
-
   }
   public function get_all_product()
   {
@@ -71,7 +63,7 @@ class DashUser_model extends CI_Model
 
   public function save_customer_info($data)
   {
-    $this->db->insert('customer', $data);
+    $this->db->insert('user', $data);
     return $this->db->insert_id();
   }
 
@@ -84,7 +76,7 @@ class DashUser_model extends CI_Model
   public function get_customer_info($data)
   {
     $this->db->select('*');
-    $this->db->from('customer');
+    $this->db->from('user');
     $this->db->where($data);
     $info = $this->db->get();
     return $info->row();

@@ -112,17 +112,12 @@ class DashUser extends CI_Controller
     $data = array();
     $data['qty'] = $this->input->post('qty');
     $data['rowid'] = $this->input->post('rowid');
-
-    // Ambil informasi produk dari rowid
     $cart_item = $this->cart->get_item($data['rowid']);
 
     $updated_qty = $cart_item['qty'] + $data['qty'];
-
-    // Pastikan kuantitas tidak menjadi negatif setelah pembaruan
     if ($updated_qty >= 0) {
         $this->cart->update($data);
     } else {
-        // Tambahkan pesan kesalahan ke dalam session flashdata
         $this->session->set_flashdata('error', 'Kuantitas tidak boleh negatif.');
     }
 

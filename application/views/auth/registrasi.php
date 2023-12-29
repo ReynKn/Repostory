@@ -1,6 +1,6 @@
 <main class="main-content  mt-0">
   
-  <div class="page-header align-items-start pt-5 pb-10 mt-6 ">
+  <div class="page-header align-items-start pt-5 pb-10 mt-1 ">
   </div>
   <div class="container">
     <div class="row  mt-n11 justify-content-center">
@@ -45,21 +45,24 @@
           <div class="card-body">
             <form class="user" method="POST" action="<?= base_url('Auth/registrasi'); ?>">
               <div class="mb-3">
-                <input type="text" class="form-control" value="<?= set_value('nama'); ?>" placeholder="Nama" aria-label="Nama" name="nama">
-                <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                <input type="text" class="form-control" value="<?= set_value('customer_name'); ?>" placeholder="Nama" aria-label="customer_name" name="customer_name">
+                <?= form_error('customer_name', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
               <div class="mb-3">
-                <input type="email" class="form-control" value="<?= set_value('email'); ?>" placeholder="Email" aria-label="Email" name="email">
-                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
-
+                <input type="email" class="form-control" value="<?= set_value('customer_email'); ?>" placeholder="Email" aria-label="customer_email" name="customer_email">
+                <?= form_error('customer_email', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
               <div class="mb-3">
-                <input type="password" class="form-control" value="<?= set_value('password1'); ?>" placeholder="Password" aria-label="Password" name="password1">
-                <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
+                <input type="password" class="form-control" value="<?= set_value('customer_password'); ?>" placeholder="Password" aria-label="customer_password" name="customer_password">
+                <?= form_error('customer_password', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
               <div class="mb-3">
-                <input type="password" class="form-control" value="<?= set_value('password2'); ?>" placeholder="Confirm Password" aria-label="Password" name="password2">
-                <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
+                <input type="text" class="form-control" value="<?= set_value('customer_address'); ?>" placeholder="Alamat" aria-label="customer_address" name="customer_address">
+                <?= form_error('customer_address', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" value="<?= set_value('customer_password'); ?>" placeholder="Nomor Telepon" aria-label="customer_phone" name="customer_phone">
+                <?= form_error('customer_phone', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
               <div class="form-check form-check-info text-start" style="color: lightskyblue;">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>

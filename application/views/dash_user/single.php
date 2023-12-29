@@ -4,7 +4,7 @@
             <div class="cont-desc span_1_of_2">
                 <div class="grid images_3_of_2">
                     <?php if (isset($single_product->product_image)): ?>
-                        <img src="<?php echo base_url('assets/img/product/' . $single_product->product_image) ?>" alt="" width="302px">
+                        <img src="<?php echo base_url('uploads/' . $single_product->product_image) ?>" alt="" width="302px">
                     <?php endif; ?>
                 </div>
                 <div class="desc span_3_of_2">
