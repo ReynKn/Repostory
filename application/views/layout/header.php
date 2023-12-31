@@ -69,8 +69,8 @@
 <body class="">
 	<div class="header_top">
 		<div class="logo">
-			<a href="http://localhost/riaustore/">
-				<img src="http://localhost/riaustore/uploads/logo.jpg" alt="" width="100">
+			<a href="http://localhost/lestore/DashUser/">
+				<img src="http://localhost/lestore/uploads/logo.jpg" alt="" width="100">
 			</a>
 		</div>
 		<ul class="nav">

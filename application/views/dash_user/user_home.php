@@ -9,34 +9,38 @@
         text-align: center;
         width: 100%;
         height: 100%;
-        /* Agar konten berada di tengah */
     }
 
     .product-box img {
         width: 100%;
         height: auto;
         margin-bottom: 10px;
-        /* Memberikan ruang di bawah gambar */
     }
 
     .product-box h4 {
-        font-size: 18px;
+        font-size: 22px;
         margin-bottom: 10px;
-        /* Memberikan ruang antara judul dan deskripsi */
     }
 
     .product-box p {
         margin-bottom: auto;
-        /* Memberikan ruang antara deskripsi dan harga */
     }
 
-    .product-box .button {
+    .product-box .button{
         margin-top: auto;
-        /* Memberikan ruang sebelum tombol Details */
+		padding: 9px 20px ;
+		border-radius: 5px;
+		background-color: black;
+		transition: background-color 0.3s, color 0.3s;
+    }
+
+    .product-box .button:hover{
+        background-color: gold;
+		color: black;
+		font-weight: bold;
     }
 </style>
 
-<!-- Bagian Produk Unggulan -->
 <div class="section group">
     <h4>Featured Products</h4>
     <div class="row">

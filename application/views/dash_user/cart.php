@@ -112,17 +112,18 @@
                     $customer_id = $this->session->userdata('customer_id');
                     if (empty($customer_id)) {
                         ?>
-                        <a href="<?php echo base_url('DashUser/checkout') ?>" class="custom-button"> CheckOut</a>
+                        <a href="<?php echo base_url('Auth/') ?>" class="custom-button"> CheckOut</a>
                         <?php
                     } elseif (!empty($customer_id)) {
                         ?>
                         <a href="<?php echo base_url('DashUser/shipping') ?>" class="custom-button">Checkout</a>
                         <?php
+                    } else {
+                        
                     }
                     ?>
                 </div>
             </div>
         </div>
-        <div class="clear"></div>
     </div>
 </div>

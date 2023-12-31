@@ -19,7 +19,7 @@
                 margin-bottom: 20px;
                 display: flex;
                 flex-wrap: wrap;
-                margin-bottom: 20px;
+                position: relative;
             }
 
             .product-item {
@@ -31,6 +31,7 @@
                 padding: 10px;
                 background-color: #f9f9f9;
                 text-align: center;
+                position: relative;
             }
 
             .product-item img {
@@ -38,14 +39,41 @@
                 height: auto;
             }
 
-            .p {
-                margin-bottom: 15px;
+            .product-item .button {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80%;
+                margin-top: auto;
+                padding: 9px 20px;
+                border-radius: 5px;
+                background-color: black;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .product-box .product-item {
+                /* Tambahkan margin bawah agar ada ruang untuk tombol */
+                padding-bottom: 40px;
+                /* Tambahkan padding bawah agar tombol tidak terlalu dekat dengan deskripsi */
+            }
+
+            .product-box .button:hover {
+                background-color: gold;
+                color: black;
+                font-weight: bold;
+            }
+
+            .product-box p {
+                margin-bottom: 10px;
+                margin-top: 10px;
             }
 
             .product-item h4 {
                 font-size: 22px;
                 margin-bottom: 10px;
             }
+
             @media (max-width: 768px) {
                 .product-item {
                     flex: 0 0 calc(50% - 20px);
@@ -62,8 +90,7 @@
                 <?php foreach ($chunk_products as $single_products) { ?>
                     <div class="product-item">
                         <a href="<?= base_url('DashUser/single/' . $single_products->product_id); ?>">
-                            <img src="<?= base_url('uploads/' . $single_products->product_image) ?>"
-                                alt="Product Image">
+                            <img src="<?= base_url('uploads/' . $single_products->product_image) ?>" alt="Product Image">
                         </a>
                         <h4>
                             <?= $single_products->product_title ?>

@@ -1,30 +1,26 @@
 <!-- start: Content -->
+<style type="text/css">
+    #result {
+        color: red;
+        padding: 5px
+    }
+
+    #result p {
+        color: red
+    }
+</style>
 <div id="content" class="span10">
 
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><i class="halflings-icon edit"></i><span class="break"></span>Edit Product</h2>
-                <div class="box-icon">
-                    <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
-                </div>
             </div>
-            <style type="text/css">
-                #result {
-                    color: red;
-                    padding: 5px
-                }
 
-                #result p {
-                    color: red
-                }
-            </style>
             <div id="result">
-                <p>
-                    <?php echo $this->session->flashdata('message'); ?>
-                </p>
+
+                <?php echo $this->session->flashdata('message'); ?>
+
             </div>
             <?php if ($this->session->flashdata('success')): ?>
                 <div class="alert alert-success">
@@ -38,8 +34,7 @@
                 </div>
             <?php endif; ?>
             <div class="box-content">
-                <form action="<?= base_url('admin/update_product/' . $product_info_by_id->product_id) ?>" method="post"
-                    enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Product Title</label>
                         <input type="text" name="product_title" class="form-control"
@@ -84,7 +79,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="reset" class="btn">Cancel</button>
+                    <button type="reset" class="btn">Reset</button>
                 </form>
 
             </div>

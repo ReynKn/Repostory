@@ -101,8 +101,8 @@
 <body class="">
 	<div class="header_top">
 		<div class="logo">
-			<a href="http://localhost/riaustore/">
-				<img src="http://localhost/riaustore/uploads/logo.jpg" alt="" width="100">
+			<a href="http://localhost/lestore/DashUser/">
+				<img src="http://localhost/lestore/uploads/logo.jpg" alt="" width="100">
 			</a>
 		</div>
 		<ul class="nav">
@@ -121,7 +121,24 @@
 					<p>Keranjang</p>
 				</a>
 			</li>
-			<li class="active">
+			<?php if (!$this->session->userdata('customer_id')) { ?>
+				<li class="<?php
+				if ($this->uri->uri_string() == 'Auth/') {
+					echo "active";
+				}
+				?>"><a href="active<?php echo base_url('Auth/'); ?>">
+						<p>Login</p>
+					</a> </li>
+				<li class="<?php
+				if ($this->uri->uri_string() == 'Auth/registrasi') {
+					echo "active";
+				}
+				?>"><a href="<?php echo base_url('Auth/registrasi'); ?>">
+						<p>Register</p>
+					</a> </li>
+			<?php } ?>
+
+			<!-- <li class="active">
 			<a href="<?= site_url('Auth/') ?>">
 					<p>Login</p>
 				</a>
@@ -130,7 +147,7 @@
 			<a href="<?= site_url('Auth/registrasi/') ?>">
 					<p>Register</p>
 				</a>
-			</li>
+			</li> -->
 			<li class="active">
 				<a href="<?= site_url('Auth/Logout') ?>">
 					<p>Logout</p>
@@ -139,7 +156,7 @@
 		</ul>
 		<div class="header_top_right">
 			<div class="search_box">
-				<form method="get" action="http://localhost/riaustore/search">
+				<form method="get" action="<?php echo base_url('DashUser/search') ?>">
 					<input type="text" placeholder="Search for Products" name="search">
 					<input type="submit" value="SEARCH">
 				</form>

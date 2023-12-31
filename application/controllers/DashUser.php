@@ -20,7 +20,7 @@ class DashUser extends CI_Controller
     $this->load->model('DashUser_model', 'model');
     $data['all_featured_products'] = $this->DashUser_model->get_all_featured_product();
     $data['all_new_products'] = $this->DashUser_model->get_all_new_product();
-      $this->load->view('layout/header_user', $data);
+    $this->load->view('layout/header_user', $data);
     $this->load->view('dash_user/user_home', $data);
     $this->load->view('layout/footer', $data);
   }
@@ -100,29 +100,28 @@ class DashUser extends CI_Controller
       $data['options'] = array('product_image' => $results->product_image);
 
       $this->cart->insert($data);
-      redirect('DashUser/cart');
-    } else {
-
+      $total_items = $this->cart->total_items();
+      if ($total_items < 3) {
+        $this->session->set_flashdata('error', 'Anda harus membeli minimal 3 barang untuk checkout.');
+        redirect('DashUser/cart');
+      } else {
+        redirect('DashUser/cart');
+      }
     }
   }
 
-  public function update_cart() {
+  public function update_cart()
+  {
     $this->load->model('DashUser_model');
 
     $data = array();
     $data['qty'] = $this->input->post('qty');
     $data['rowid'] = $this->input->post('rowid');
     $cart_item = $this->cart->get_item($data['rowid']);
-
-    $updated_qty = $cart_item['qty'] + $data['qty'];
-    if ($updated_qty >= 0) {
-        $this->cart->update($data);
-    } else {
-        $this->session->set_flashdata('error', 'Kuantitas tidak boleh negatif.');
-    }
+    $this->cart->update($data);
 
     redirect('DashUser/cart');
-}
+  }
 
   public function remove_cart()
   {
@@ -135,7 +134,7 @@ class DashUser extends CI_Controller
   public function customer_shipping()
   {
     $data = array();
-    $this->load->view('layout/header_user', $data);
+    $this->load->view('layout/header_user');
     $this->load->view('dash_user/customer_shipping', $data);
     $this->load->view('layout/footer', $data);
   }
@@ -143,11 +142,6 @@ class DashUser extends CI_Controller
   public function save_shipping_address()
   {
     $this->load->model('DashUser_model');
-    $data = array();
-    $data['shipping_name'] = $this->input->post('shipping_name');
-    $data['shipping_email'] = $this->input->post('shipping_email');
-    $data['shipping_address'] = $this->input->post('shipping_address');
-    $data['shipping_phone'] = $this->input->post('shipping_phone');
 
     $this->form_validation->set_rules('shipping_name', 'Shipping Name', 'trim|required');
     $this->form_validation->set_rules('shipping_email', 'Shipping Email', 'trim|required|valid_email');
@@ -155,6 +149,12 @@ class DashUser extends CI_Controller
     $this->form_validation->set_rules('shipping_phone', 'Shipping Phone', 'trim|required');
 
     if ($this->form_validation->run() == true) {
+      $data = [];
+      $data['shipping_name'] = $this->input->post('shipping_name');
+      $data['shipping_email'] = $this->input->post('shipping_email');
+      $data['shipping_address'] = $this->input->post('shipping_address');
+      $data['shipping_phone'] = $this->input->post('shipping_phone');
+
       $result = $this->DashUser_model->save_shipping_address($data);
       $this->session->set_userdata('shipping_id', $result);
       if ($result) {
@@ -171,7 +171,6 @@ class DashUser extends CI_Controller
 
   public function checkout()
   {
-    $data = array();
     $this->load->view('layout/header_user');
     $this->load->view('dash_user/checkout');
     $this->load->view('layout/footer');
@@ -179,7 +178,6 @@ class DashUser extends CI_Controller
 
   public function payment()
   {
-    $data = array();
     $this->load->view('layout/header_user');
     $this->load->view('dash_user/payment');
     $this->load->view('layout/footer');
@@ -187,10 +185,14 @@ class DashUser extends CI_Controller
 
   public function save_order()
   {
+    $this->load->library('upload');
     $this->load->model('DashUser_model');
-    $data['payment_type'] = $this->input->post('payment');
+    $this->load->library('form_validation');
 
-    $this->form_validation->set_rules('payment', 'Payment', 'trim|required');
+    $data['payment_type'] = $this->input->post('payment_type');
+
+    $this->form_validation->set_rules('payment_type', 'Payment', 'trim|required');
+    // $this->form_validation->set_rules('payment_image', 'Payment Image', 'callback_validate_proof');
 
     if ($this->form_validation->run() == true) {
       $payment_id = $this->DashUser_model->save_payment_info($data);
@@ -202,12 +204,10 @@ class DashUser extends CI_Controller
 
       $order_id = $this->DashUser_model->save_order_info($odata);
 
-      $oddata = array();
-
       $myoddata = $this->cart->contents();
 
       foreach ($myoddata as $oddatas) {
-
+        $oddata = array();
         $oddata['order_id'] = $order_id;
         $oddata['product_id'] = $oddatas['id'];
         $oddata['product_name'] = $oddatas['name'];
@@ -217,20 +217,46 @@ class DashUser extends CI_Controller
         $this->DashUser_model->save_order_details_info($oddata);
       }
 
-      // if ($payment_method == 'paypal') {
+      if (!$this->upload->do_upload('payment_image')) {
+        $this->form_validation->set_message('validate_proof', $this->upload->display_errors());
+        echo $this->upload->display_errors();
+      } else {
+        $payment_image = $this->upload->data('file_name');
+        $data['payment_image'] = $payment_image;
 
-      // }
-      // if ($payment_method == 'cashon') {
-
-      // }
+        $payment_id = $this->DashUser_model->save_payment_info($data);
+      }
 
       $this->cart->destroy();
-
       redirect('DashUser/payment');
     } else {
       $this->session->set_flashdata('message', validation_errors());
       redirect('DashUser/checkout');
     }
+  }
+
+  function validate_proof()
+  {
+    $config['upload_path'] = './upload/';
+    $config['allowed_types'] = 'jpg|png|jpeg';
+    $config['max_size'] = '2048';
+    $this->load->library('upload', $config);
+
+    if ($this->input->post('payment_type') !== "Cash On Delivery") {
+      if (!empty($_FILES['payment_image']['name'])) {
+        if (!$this->upload->do_upload('payment_image')) {
+          $this->form_validation->set_message('validate_proof', $this->upload->display_errors());
+          return FALSE;
+        } else {
+          $data = array('upload_data' => $this->upload->data());
+          $proof_name = $data['upload_data']['file_name'];
+        }
+      } else {
+        $this->form_validation->set_message('validate_proof', "Please upload payment proof.");
+        return FALSE;
+      }
+    }
+    return TRUE;
   }
 
   public function search()
@@ -239,18 +265,19 @@ class DashUser extends CI_Controller
 
     if (!empty($search)) {
       $data = array();
-      $data['get_all_product'] = $this->DashUser_model->get_all_search_product($search);
+      $this->load->model('Product_model');
+      $data['get_all_product'] = $this->Product_model->get_all_search_product($search);
       $data['search'] = $search;
 
       if ($data['get_all_product']) {
-        $this->load->view('layout/auth_header');
+        $this->load->view('layout/header_user');
         $this->load->view('dash_user/search', $data);
         $this->load->view('layout/footer');
       } else {
-        redirect('error');
+        redirect('DashUser/product');
       }
     } else {
-      redirect('error');
+      redirect('DashUser/product');
     }
   }
 

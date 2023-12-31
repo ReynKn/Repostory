@@ -61,7 +61,7 @@
                 <?= form_error('customer_address', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
               <div class="mb-3">
-                <input type="text" class="form-control" value="<?= set_value('customer_password'); ?>" placeholder="Nomor Telepon" aria-label="customer_phone" name="customer_phone">
+                <input type="text" class="form-control" value="<?= set_value('customer_phone'); ?>" placeholder="Nomor Telepon" aria-label="customer_phone" name="customer_phone">
                 <?= form_error('customer_phone', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
               <div class="form-check form-check-info text-start" style="color: lightskyblue;">

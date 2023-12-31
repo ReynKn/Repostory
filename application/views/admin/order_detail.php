@@ -3,12 +3,12 @@
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon user"></i><span class="break"></span>Order Details</h2>
-                <div class="box-icon">
-                    <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
-                </div>
+                <h2><span class="break"></span>Order Details (
+                    <?php 
+                    $payment_status = ($order_info->payment_status === 'Lunas') ? 'Lunas' : 'Belum Lunas';
+                    echo $payment_status;
+                    ?>
+                )</h2>
             </div>
             <style type="text/css">
                 #result {
@@ -131,8 +131,8 @@
                         <?php } ?>
                     </tbody>
                     <tfooter>
-                        <td colspan="5">Total Amount</td>
-                        <td>= Rp.
+                        <td colspan="5" style="font-weight: bold;">Total Amount</td>
+                        <td style="font-weight: bold;">Rp.
                             <?php echo $this->cart->format_number($order_info->order_total) ?>
                         </td>
                     </tfooter>

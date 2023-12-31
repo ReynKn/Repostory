@@ -15,7 +15,7 @@
                     border: 2px solid black;
                     padding: 20px;
                     border-radius: 10px;
-width: 600px;
+                    width: 600px;
                     color: white;
                 }
 
@@ -26,9 +26,10 @@ width: 600px;
                 }
 
                 .btn-primary:hover {
-                    background-color: gold;
-                    color: black;
+                    background-color: gold; 
+                    color: black; 
                     border-color: gold;
+                    font-weight: bold; 
                 }
             </style>
             <div id="result">
@@ -78,7 +79,7 @@ width: 600px;
                         </div>
                         <div class="text-center">
                             <button type="submit"
-                                class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Diantarkan</button>
+                                class="btn btn-lg btn-primary btn-lg w-100 mt-2 mb-0">Diantarkan</button>
                         </div>
                     </div>
             </form>

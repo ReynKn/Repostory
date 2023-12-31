@@ -37,6 +37,15 @@ class Admin extends CI_Controller
 
     public function save_product()
     {
+        // verification
+        $this->form_validation->set_rules('product_title', 'Title', 'required');
+        $this->form_validation->set_rules('product_description', 'Description', 'required');
+        $this->form_validation->set_rules('product_image', 'Image', 'required');
+        $this->form_validation->set_rules('product_price', 'Price', 'required|numeric');
+        $this->form_validation->set_rules('product_quantity', 'Quantity', 'required|numeric');
+        $this->form_validation->set_rules('product_feature', 'Feature', 'required|numeric');
+
+        // encapsulation
         $product_data = [
             'product_title' => $this->input->post('product_title'),
             'product_description' => $this->input->post('product_description'),
@@ -44,10 +53,11 @@ class Admin extends CI_Controller
             'product_quantity' => $this->input->post('product_quantity'),
             'product_feature' => $this->input->post('product_feature'),
         ];
+
         // Handle file upload
         $upload_image = $_FILES['product_image']['name'];
         if ($upload_image) {
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'jpeg|jpg|png';
             $config['max_size'] = '2048';
             $config['upload_path'] = './uploads/';
             $this->load->library('upload', $config);
@@ -98,25 +108,10 @@ class Admin extends CI_Controller
     }
     public function edit_product($id)
     {
-        $data = array();
-        $data['product_info_by_id'] = $this->Product_model->edit($id);
-        // $data['maincontent'] = $this->load->view('admin/vw_edit_produk', $data, true);
-        $this->load->view("layout/header", $data);
-        $this->load->view("admin/vw_edit_produk", $data);
-        $this->load->view("layout/footer", $data);
-    }
-
-    public function update_product($id)
-    {
-        // $data['product_info_by_id'] = $this->Product_model->edit($id);
-        // $this->Product_model->save_product_info($data);
-        // $data['product'] = $this->Product_model->get();
-
         $this->form_validation->set_rules('product_title', 'Product_Title', 'required');
         $this->form_validation->set_rules('product_description', 'Product_Description', 'required');
         $this->form_validation->set_rules('product_price', 'Product_Price', 'required');
         $this->form_validation->set_rules('product_quantity', 'Product_Quantity', 'required');
-        $this->form_validation->set_rules('product_image', 'Product_Image', 'required');
 
         if ($this->form_validation->run() == false) {
             $data['product_info_by_id'] = $this->Product_model->edit($id);
@@ -149,10 +144,17 @@ class Admin extends CI_Controller
                 }
             }
             $this->Product_model->update(array('product_id' => $id), $product_data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">The Data Successfully Added!</div>');
-            redirect('admin/vw_fix_produk');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">The Data Successfully Edited!</div>');
+            redirect('admin/edit_product/' . $id);
         }
+
+        // $data['product_info_by_id'] = $this->Product_model->edit($id);
+        // // $data['maincontent'] = $this->load->view('admin/vw_edit_produk', $data, true);
+        // $this->load->view("layout/header", $data);
+        // $this->load->view("admin/vw_edit_produk", $data);
+        // $this->load->view("layout/footer", $data);
     }
+
     public function delete_product($id)
     {
         $product = $this->Product_model->get_image_by_id($id);
@@ -195,6 +197,7 @@ class Admin extends CI_Controller
     public function manage_order()
     {
         $data = array();
+        $this->load->model('Orders_model');
         $this->load->view("layout/header", $data);
         $data['all_manage_order_info'] = $this->Orders_model->manage_order_info();
         $this->load->view("admin/orders", $data);
@@ -204,6 +207,7 @@ class Admin extends CI_Controller
     public function order_details($order_id)
     {
         $data = array();
+        $this->load->model('Orders_model');
         $this->load->view("layout/header", $data);
         $order_info = $this->Orders_model->order_info_by_id($order_id);
         $customer_id = $order_info->customer_id;
@@ -217,6 +221,31 @@ class Admin extends CI_Controller
         $data['order_info'] = $this->Orders_model->order_info_by_id($order_id);
         $this->load->view("admin/order_detail", $data);
         $this->load->view("layout/footer", $data);
+    }
+
+    public function update_payment_status()
+    {
+        $order_id = $this->input->post('order_id');
+        $new_status = $this->input->post('new_status');
+
+        $this->load->model('Orders_model');
+        $result = $this->Orders_model->update_payment_status($order_id, $new_status);
+        if ($result) {
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+    }
+    public function delete_order($order_id)
+    {
+        $this->load->model('Orders_Model');
+        $result = $this->Orders_Model->delete_order_by_id($order_id);
+
+        if ($result) {
+            echo 'success';
+        } else {
+            echo 'error';
+        }
     }
 
 

@@ -98,6 +98,11 @@ class DashUser_model extends CI_Model
   {
     $this->db->insert('order_detail', $oddata);
   }
-
+  public function save_payment_image_info($payment_id, $proof_name)
+  {
+      $data = array('payment_image' => $proof_name);
+      $this->db->where('payment_id', $payment_id);
+      $this->db->update('payment', $data);
+  }
 
 }

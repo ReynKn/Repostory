@@ -45,31 +45,26 @@ class Product_model extends CI_Model
 
   public function update($where, $data)
   {
-    $this->db->update('product_id', $data, $where);
+    $this->db->where($where);
+    $this->db->update('product', $data);
     return $this->db->affected_rows();
   }
   public function save_product_info($product_data)
   {
-    $this->load->library('form_validation');
-    $this->form_validation->set_rules('product_title', 'Title', 'required');
-    $this->form_validation->set_rules('product_description', 'Description', 'required');
-    $this->form_validation->set_rules('product_image', 'Image', 'required');
-    $this->form_validation->set_rules('product_price', 'Price', 'required|numeric');
-    $this->form_validation->set_rules('product_quantity', 'Quantity', 'required|numeric');
-    $this->form_validation->set_rules('product_feature', 'Feature', 'required|numeric');
-
-    if (!$this->form_validation->run()) {
-      return false;
-    }
-    $insert_data = [
-      'product_title' => $product_data['product_title'],
-      'product_description' => $product_data['product_description'],
-      'product_image' => $product_data['product_image'],
-      'product_price' => $product_data['product_price'],
-      'product_quantity' => $product_data['product_quantity'],
-      'product_feature' => $product_data['product_feature'],
-    ];
-    return $this->db->insert('product', $insert_data);
+    $this->db->insert('product', $product_data);
+    return $this->db->insert_id();
   }
+
+  public function get_all_search_product($search)
+  {
+      $this->db->select('*');
+      $this->db->from('product');
+      $this->db->order_by('product.product_id', 'DESC');
+      $this->db->like('product.product_title', $search, 'both');
+      $this->db->or_like('product.product_description', $search, 'both');
+      $info = $this->db->get();
+      return $info->result();
+  }
+
 
 }

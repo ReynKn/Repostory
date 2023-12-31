@@ -33,7 +33,6 @@
         .box:hover h1 {
             color: #fff;
         }
-
     </style>
     <div class="row">
 
@@ -52,7 +51,8 @@
             <div class="box 2">
                 <i class="nc-icon nc-cart-simple"></i>
                 <h1>
-                    <?php $query = $this->db->query('SELECT * FROM orders');
+                    <?php
+                    $query = $this->db->query('SELECT * FROM orders WHERE payment_status != "Lunas"');
                     echo $query->num_rows(); ?>
                 </h1>
                 <h4>Orders</h4>
@@ -81,5 +81,21 @@
             </div>
         </div>
     </div><!--/row-->
+    <div class="row">
+        <div class="col-md-12 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5>Total Revenue</h5>
 
-</div>
+                    </div>
+                    <div class="m-t-50" style="height: 330px">
+
+                        <canvas id="lineChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
