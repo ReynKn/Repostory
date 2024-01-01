@@ -126,7 +126,7 @@
 				if ($this->uri->uri_string() == 'Auth/') {
 					echo "active";
 				}
-				?>"><a href="active<?php echo base_url('Auth/'); ?>">
+				?>"><a href="<?php echo base_url('Auth/'); ?>">
 						<p>Login</p>
 					</a> </li>
 				<li class="<?php

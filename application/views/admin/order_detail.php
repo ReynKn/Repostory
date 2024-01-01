@@ -4,11 +4,12 @@
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><span class="break"></span>Order Details (
-                    <?php 
-                    $payment_status = ($order_info->payment_status === 'Lunas') ? 'Lunas' : 'Belum Lunas';
+                    <?php
+                    $payment_status = ($order_info->payment_status === 'Lunas') ? 'Lunas' : (($order_info->payment_status === 'Sudah') ? 'Sudah' : 'Belum Lunas');
                     echo $payment_status;
                     ?>
-                )</h2>
+                    )
+                </h2>
             </div>
             <style type="text/css">
                 #result {

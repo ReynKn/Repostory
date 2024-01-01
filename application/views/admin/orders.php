@@ -4,7 +4,6 @@
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><i class="halflings-icon user"></i><span class="break"></span>Manage Order</h2>
-                \
             </div>
             <style type="text/css">
                 #result {
@@ -71,14 +70,15 @@
                                 <td>Rp.
                                     <?php echo $this->cart->format_number($single_order->order_total) ?>
                                 </td>
-                                <td>
-                                    <img src="<?php echo base_url('uploads/' . $single_order->payment_image); ?>"
+                                <td class="center">
+                                    <img 
+                                    src="<?php echo base_url('uploads/' . $single_order->payment_image); ?>"
                                         alt="Payment Image" width="100">
                                 </td>
                                 <td style="text-align: center;">
                                     <?php
                                     $status = $single_order->payment_status;
-                                    $class = ($status === 'Lunas') ? 'text-success font-weight-bold' : 'text-danger font-weight-bold';
+                                    $class = ($status === 'Lunas') ? 'text-success font-weight-bold' : (($status === 'Sudah') ? 'text-info font-weight-bold' : 'text-danger font-weight-bold') ;
                                     echo "<span class='{$class}'>" . ucfirst($status) . "</span>";
                                     ?>
                                 </td>
@@ -100,9 +100,9 @@
                     $(document).ready(function () {
                         $('.btn-edit-status').click(function () {
                             var order_id = $(this).data('orderid');
-                            var new_status = prompt('Masukkan status baru ("Lunas" atau "Belum Lunas"):');
+                            var new_status = prompt('Masukkan status baru ("Lunas" atau "Belum Lunas atau "Sudah" (Sudah digunakan jika sudah ke excel)):');
 
-                            if (new_status !== null && (new_status === 'Lunas' || new_status === 'Belum Lunas')) {
+                            if (new_status !== null && (new_status === 'Lunas' || new_status === 'Belum Lunas' || new_status === 'Sudah')) {
                                 $.ajax({
                                     url: '<?php echo base_url('Admin/update_payment_status/') ?>' + order_id,
                                     method: 'POST',
@@ -115,7 +115,7 @@
                                     }
                                 });
                             } else {
-                                alert('Status tidak valid. Harap masukkan "Lunas" atau "Belum Lunas".');
+                                alert('Status tidak valid. Harap masukkan "Lunas" atau "Belum Lunas" atau "Sudah.');
                             }
                         });
                     });

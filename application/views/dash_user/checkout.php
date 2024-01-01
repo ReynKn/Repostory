@@ -11,6 +11,12 @@
                 #result p {
                     color: red
                 }
+
+                input[type="radio"] {
+                    width: 20px;
+                    height: 20px;
+                }
+
             </style>
             <div id="result">
                 <?php if (!empty($this->session->flashdata('message'))): ?>
@@ -20,14 +26,18 @@
                 <?php endif; ?>
             </div>
             <div class="form-container"
-                style="width: 300px; margin: 0 auto; border: solid 1px #CCCCCC; border-radius: 5px; padding: 20px">
-                <form method="post" action="<?php echo base_url('save/order'); ?>" style="text-align: left" enctype="multipart/form-data">
+                style="width: 500px; margin: 0 auto; border: solid 1px #CCCCCC; border-radius: 5px; padding: 20px">
+                <form method="post" action="<?php echo base_url('save/order'); ?>" style="text-align: left"
+                    enctype="multipart/form-data"></br>
                     <span><input type="radio" name="payment_type" value="Cash On Delivery" />Cash On
-                        Delivery</span></br>
-                    <span><input type="radio" name="payment_type" value="BRI" />BRI</span></br>
-                    <span><input type="radio" name="payment_type" value="BCA" />BCA</span></br>
-                    <span><input type="radio" name="payment_type" value="Mandiri" />Mandiri</span></br>
-                    <span><input type="radio" name="payment_type" value="Panin" />Panin</span></br>
+                        Delivery (Tidak Perlu Foto Bukti Pembayaran)</span></br></br>
+                    <span><input type="radio" name="payment_type" value="BRI" />BRI {034 3xx xxxx} [An/Vany]</span></br></br>
+                    <span><input type="radio" name="payment_type" value="BCA" />BCA {0666 0100 0xxx xxx}
+                        [An/Vany]</span></br></br>
+                    <span><input type="radio" name="payment_type" value="Mandiri" />Mandiri {108 00x xxx xxxx}
+                        [An/Vany]</span></br></br>
+                    <span><input type="radio" name="payment_type" value="Panin" />Panin {577 xxx xxxx}
+                        [An/Iwan]</span></br></br>
                     </br>
                     <!-- <div class="control-group">
                         <label class="control-label" for="fileInput">Product Image</label>
@@ -40,6 +50,7 @@
                         <?php echo $error; ?>
                     <?php endif; ?>
                     <br></br>
+                    <p>Jika Foto tidak dimasukkan, maka dianggap memilih <span style="color: red;">COD</span></p>
                     <input type="submit" value="Pay" style="display: block; margin: 0 auto;">
                 </form>
             </div>

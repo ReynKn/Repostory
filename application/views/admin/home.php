@@ -52,8 +52,9 @@
                 <i class="nc-icon nc-cart-simple"></i>
                 <h1>
                     <?php
-                    $query = $this->db->query('SELECT * FROM orders WHERE payment_status != "Lunas"');
-                    echo $query->num_rows(); ?>
+                    $query = $this->db->query('SELECT * FROM orders WHERE payment_status != "Lunas" AND payment_status != "Sudah" AND payment_status != ""');
+                    echo $query->num_rows();
+                     ?>
                 </h1>
                 <h4>Orders</h4>
             </div>
@@ -74,14 +75,14 @@
             <div class="box 4">
                 <i class="nc-icon nc-money-coins"></i>
                 <h1>
-                    <?php $query = $this->db->query('SELECT SUM( order_total)as total FROM orders;')->row();
+                    <?php $query = $this->db->query('SELECT SUM( order_total)as total FROM orders where payment_status = "Lunas";')->row();
                     echo $query->total; ?>
                 </h1>
                 <h4>Total</h4>
             </div>
         </div>
     </div><!--/row-->
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12 col-lg-8">
             <div class="card">
                 <div class="card-body">
@@ -98,4 +99,4 @@
         </div>
 
 
-    </div>
+    </div> -->

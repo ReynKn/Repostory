@@ -8,7 +8,8 @@
                 text-decoration: none;
                 transition: background-color 0.3s, color 0.3s;
                 padding: 10px 15px;
-                border-radius: 5px
+                border-radius: 5px;
+                margin-left: 20px;
             }
 
             .custom-button:hover {
@@ -110,16 +111,20 @@
                 <div class="shopright">
                     <?php
                     $customer_id = $this->session->userdata('customer_id');
-                    if (empty($customer_id)) {
-                        ?>
-                        <a href="<?php echo base_url('Auth/') ?>" class="custom-button"> CheckOut</a>
-                        <?php
-                    } elseif (!empty($customer_id)) {
-                        ?>
-                        <a href="<?php echo base_url('DashUser/shipping') ?>" class="custom-button">Checkout</a>
-                        <?php
+                    if ($this->cart->total_items() < 3) {
+                        echo '<span style="color:red;">Anda harus beli minimal 3 barang</span>';
                     } else {
-                        
+                        if (empty($customer_id)) {
+                            ?>
+                            <a href="<?php echo base_url('Auth/') ?>" class="custom-button"> CheckOut</a>
+                            <?php
+                        } elseif (!empty($customer_id)) {
+                            ?>
+                            <a href="<?php echo base_url('DashUser/shipping') ?>" class="custom-button">Checkout</a>
+                            <?php
+                        } else {
+
+                        }
                     }
                     ?>
                 </div>

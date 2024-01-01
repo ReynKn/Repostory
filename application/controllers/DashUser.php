@@ -192,7 +192,6 @@ class DashUser extends CI_Controller
     $data['payment_type'] = $this->input->post('payment_type');
 
     $this->form_validation->set_rules('payment_type', 'Payment', 'trim|required');
-    // $this->form_validation->set_rules('payment_image', 'Payment Image', 'callback_validate_proof');
 
     if ($this->form_validation->run() == true) {
       $payment_id = $this->DashUser_model->save_payment_info($data);
@@ -217,15 +216,21 @@ class DashUser extends CI_Controller
         $this->DashUser_model->save_order_details_info($oddata);
       }
 
-      if (!$this->upload->do_upload('payment_image')) {
-        $this->form_validation->set_message('validate_proof', $this->upload->display_errors());
-        echo $this->upload->display_errors();
-      } else {
-        $payment_image = $this->upload->data('file_name');
-        $data['payment_image'] = $payment_image;
+      if ($_FILES['payment_image']['error'] === UPLOAD_ERR_OK) {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = '2048';
+        $this->upload->initialize($config);
 
-        $payment_id = $this->DashUser_model->save_payment_info($data);
-      }
+        if (!$this->upload->do_upload('payment_image')) {
+            $error = $this->upload->display_errors();
+            // Handle upload error
+        } else {
+            $upload_data = $this->upload->data();
+            $proof_name = $upload_data['file_name'];
+            $this->DashUser_model->save_payment_image_info($payment_id, $proof_name);
+        }
+    }
 
       $this->cart->destroy();
       redirect('DashUser/payment');
@@ -237,7 +242,7 @@ class DashUser extends CI_Controller
 
   function validate_proof()
   {
-    $config['upload_path'] = './upload/';
+    $config['upload_path'] = './uploads/';
     $config['allowed_types'] = 'jpg|png|jpeg';
     $config['max_size'] = '2048';
     $this->load->library('upload', $config);
