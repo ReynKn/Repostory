@@ -41,13 +41,13 @@
                 <table>
                     <div class="form-container">
                         <div class="text-center ma">
-                            <h4 class="font-weight-bolder" style="color:black">Shipping Form</h4>
+                            <h4 class="font-weight-bolder" style="color:black">Form Pengiriman</h4>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
                             <div style="width: 48%;">
                                 <div class="mb-3">
                                     <input type="text" class="form-control form-control-user"
-                                        placeholder="Masukkan Namamu" aria-label="shipping_name" name="shipping_name"
+                                        placeholder="Masukkan Nama Penerima" aria-label="shipping_name" name="shipping_name"
                                         id="shipping_name" value="<?= set_value('shipping_name'); ?>">
                                     <?= form_error('shipping_name', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-user" placeholder="Masukkan Alamatmu"
+                            <input type="text" class="form-control form-control-user" placeholder="Masukkan Alamat diantarkan"
                                 aria-label="" id="shipping_address" name="shipping_address"
                                 value="<?= set_value('shipping_address'); ?>">
                             <?= form_error('shipping_address', '<small class="text-danger pl-3">', '</small>'); ?>

@@ -9,7 +9,7 @@
             border-radius: 5px;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            height: 200px;
+            height: 225px;
             overflow: hidden;
         }
 
@@ -19,8 +19,18 @@
         }
 
         .box h1 {
-            margin-top: 20px;
-            font-size: 30px;
+            margin-top: 5px;
+            font-size: 25px;
+        }
+
+        .box h4 {
+            margin-top: 5px;
+            font-size: 18px;
+        }
+
+        .box p {
+            font-size: 14px;
+            margin-top: 5px;
         }
 
         .box:hover {
@@ -52,11 +62,12 @@
                 <i class="nc-icon nc-cart-simple"></i>
                 <h1>
                     <?php
-                    $query = $this->db->query('SELECT * FROM orders WHERE payment_status != "Lunas" AND payment_status != "Sudah" AND payment_status != ""');
+                    $query = $this->db->query('SELECT * FROM orders WHERE payment_status != "Lunas" AND payment_status != "Sudah"');
                     echo $query->num_rows();
-                     ?>
+                    ?>
                 </h1>
-                <h4>Orders</h4>
+                <h4>Jumlah Pesanan </h4>
+                <p>(Status Kosong/Belum Lunas)</p>
             </div>
         </div>
 
@@ -78,7 +89,8 @@
                     <?php $query = $this->db->query('SELECT SUM( order_total)as total FROM orders where payment_status = "Lunas";')->row();
                     echo $query->total; ?>
                 </h1>
-                <h4>Total</h4>
+                <h4>Total Pendapatan Saat Ini</h4>
+                <p>(Status Lunas)</p>
             </div>
         </div>
     </div><!--/row-->

@@ -230,6 +230,10 @@ class DashUser extends CI_Controller
             $proof_name = $upload_data['file_name'];
             $this->DashUser_model->save_payment_image_info($payment_id, $proof_name);
         }
+    } else {
+      $proof_name = 'cod.png';
+      $this->DashUser_model->save_payment_image_info($payment_id, $proof_name);
+  
     }
 
       $this->cart->destroy();
